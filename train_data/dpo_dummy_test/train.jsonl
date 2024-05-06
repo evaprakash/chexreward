@@ -1,0 +1,4 @@
+{"text": "mild pulmonary congestion and cardiomegaly", "image_1": "images/mimic_10_1.jpg", "conditioning_image": "N/A", "image_2": "images/mimic_10_2.jpg", "rank_t_1": "0", "rank_m_1": "N/A", "rank_t_2": "4", "rank_m_2": "N/A"}
+{"text": "mild pulmonary congestion and cardiomegaly", "image_1": "images/mimic_10_1.jpg", "conditioning_image": "N/A", "image_2": "images/mimic_10_3.jpg", "rank_t_1": "0", "rank_m_1": "N/A", "rank_t_2": "3", "rank_m_2": "N/A"}
+{"text": "mild pulmonary congestion and cardiomegaly", "image_1": "images/mimic_10_1.jpg", "conditioning_image": "N/A", "image_2": "images/mimic_10_4.jpg", "rank_t_1": "0", "rank_m_1": "N/A", "rank_t_2": "4", "rank_m_2": "N/A"}
+{"text": "mild pulmonary congestion and cardiomegaly", "image_1": "images/mimic_10_2.jpg", "conditioning_image": "N/A", "image_2": "images/mimic_10_3.jpg", "rank_t_1": "4", "rank_m_1": "N/A", "rank_t_2": "3", "rank_m_2": "N/A"}

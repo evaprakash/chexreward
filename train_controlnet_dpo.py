@@ -324,7 +324,7 @@ def parse_args(input_args=None):
     parser.add_argument(
         "--checkpointing_steps",
         type=int,
-        default=500,
+        default=50,
         help=(
             "Save a checkpoint of the training state every X updates. Checkpoints can be used for resuming training via `--resume_from_checkpoint`. "
             "In the case that the checkpoint is better than the final trained model, the checkpoint can also be used for inference."
@@ -983,6 +983,7 @@ def main(args):
                     "xFormers 0.0.16 cannot be used for training in some GPUs. If you observe problems during training, please update xFormers to at least 0.0.17. See https://huggingface.co/docs/diffusers/main/en/optimization/xformers for more details."
                 )
             unet.enable_xformers_memory_efficient_attention()
+            unet_ref.enable_xformers_memory_efficient_attention()
             controlnet.enable_xformers_memory_efficient_attention()
             controlnet_ref.enable_xformers_memory_efficient_attention()
         else:
@@ -1081,6 +1082,7 @@ def main(args):
     # Move vae, unet and text_encoder to device and cast to weight_dtype
     vae.to(accelerator.device, dtype=weight_dtype)
     unet.to(accelerator.device, dtype=weight_dtype)
+    unet_ref.to(accelerator.device, dtype=weight_dtype)
     text_encoder.to(accelerator.device, dtype=weight_dtype)
 
     # We need to recalculate our total training steps as the size of the training dataloader may have changed.
@@ -1165,13 +1167,16 @@ def main(args):
                 noise = torch.randn_like(latents_1)
                 bsz = latents_1.shape[0]
                 # Sample a random timestep for each image
-                timesteps_1 = torch.randint(0, noise_scheduler.config.num_train_timesteps, (bsz,), device=latents_1.device)
-                timesteps_1 = timesteps_1.long()
-                timesteps_2 = timesteps_1.clone().to(latents_2.device)
+                device = latents_1.device
+                timesteps = torch.randint(0, noise_scheduler.config.num_train_timesteps, (bsz,), device=device)
+                timesteps = timesteps.long()
                 # Add noise to the latents according to the noise magnitude at each timestep
                 # (this is the forward diffusion process)
                 noisy_latents_1 = noise_scheduler.add_noise(latents_1, noise, timesteps)
                 noisy_latents_2 = noise_scheduler.add_noise(latents_2, noise, timesteps)
+                
+                del latents_1
+                del latents_2
 
                 # Get the text embedding for conditioning
                 encoder_hidden_states = text_encoder(batch["input_ids"], return_dict=False)[0]
@@ -1179,11 +1184,11 @@ def main(args):
                 if batch["captions"][0] == "N/A":
                     encoder_hidden_states = torch.zeros_like(encoder_hidden_states)
                 controlnet_image = batch["conditioning_pixel_values"].to(dtype=weight_dtype)
-                
+
                 # Predict the noise residual for image 1
                 down_block_res_samples_1, mid_block_res_sample_1 = controlnet(
                     noisy_latents_1,
-                    timesteps_1,
+                    timesteps,
                     encoder_hidden_states=encoder_hidden_states,
                     controlnet_cond=controlnet_image,
                     return_dict=False,
@@ -1191,7 +1196,7 @@ def main(args):
 
                 model_pred_1 = unet(
                     noisy_latents_1,
-                    timesteps_1,
+                    timesteps,
                     encoder_hidden_states=encoder_hidden_states,
                     down_block_additional_residuals=[
                         sample.to(dtype=weight_dtype) for sample in down_block_res_samples_1
@@ -1199,11 +1204,14 @@ def main(args):
                     mid_block_additional_residual=mid_block_res_sample_1.to(dtype=weight_dtype),
                     return_dict=False,
                 )[0]
-                
+
+                del down_block_res_samples_1
+                del mid_block_res_sample_1
+
                 # Predict the noise residual for image 2
                 down_block_res_samples_2, mid_block_res_sample_2 = controlnet(
                     noisy_latents_2,
-                    timesteps_2,
+                    timesteps,
                     encoder_hidden_states=encoder_hidden_states,
                     controlnet_cond=controlnet_image,
                     return_dict=False,
@@ -1211,7 +1219,7 @@ def main(args):
 
                 model_pred_2 = unet(
                     noisy_latents_2,
-                    timesteps_2,
+                    timesteps,
                     encoder_hidden_states=encoder_hidden_states,
                     down_block_additional_residuals=[
                         sample.to(dtype=weight_dtype) for sample in down_block_res_samples_2
@@ -1219,46 +1227,54 @@ def main(args):
                     mid_block_additional_residual=mid_block_res_sample_2.to(dtype=weight_dtype),
                     return_dict=False,
                 )[0]
+                
+                del down_block_res_samples_2
+                del mid_block_res_sample_2
 
-                # Predict the reference noise residual for image 1
-                down_block_res_samples_ref_1, mid_block_res_sample_ref_1 = controlnet_ref(
-                    noisy_latents_1,
-                    timesteps_1,
-                    encoder_hidden_states=encoder_hidden_states,
-                    controlnet_cond=controlnet_image,
-                    return_dict=False,
-                )
-                model_pred_ref_1 = unet_ref(
-                    noisy_latents_1,
-                    timesteps_1,
-                    encoder_hidden_states=encoder_hidden_states,
-                    down_block_additional_residuals=[
-                        sample.to(dtype=weight_dtype) for sample in down_block_res_samples_ref_1
-                    ],
-                    mid_block_additional_residual=mid_block_res_sample_ref_1.to(dtype=weight_dtype),
-                    return_dict=False,
-                )[0]
+                with torch.no_grad():
+                    # Predict the reference noise residual for image 1
+                    down_block_res_samples_ref_1, mid_block_res_sample_ref_1 = controlnet_ref(
+                        noisy_latents_1,
+                        timesteps,
+                        encoder_hidden_states=encoder_hidden_states,
+                        controlnet_cond=controlnet_image,
+                        return_dict=False,
+                    )
+                    model_pred_ref_1 = unet_ref(
+                        noisy_latents_1,
+                        timesteps,
+                        encoder_hidden_states=encoder_hidden_states,
+                        down_block_additional_residuals=[
+                            sample.to(dtype=weight_dtype) for sample in down_block_res_samples_ref_1
+                        ],
+                        mid_block_additional_residual=mid_block_res_sample_ref_1.to(dtype=weight_dtype),
+                        return_dict=False,
+                    )[0]
+                
+                    del down_block_res_samples_ref_1
+                    del mid_block_res_sample_ref_1
                 
                 # Predict the reference noise residual for image 2
-                down_block_res_samples_ref_2, mid_block_res_sample_ref_2 = controlnet_ref(
-                    noisy_latents_2,
-                    timesteps_2,
-                    encoder_hidden_states=encoder_hidden_states,
-                    controlnet_cond=controlnet_image,
-                    return_dict=False,
-                )
-                model_pred_ref_2 = unet_ref(
-                    noisy_latents_2,
-                    timesteps_2,
-                    encoder_hidden_states=encoder_hidden_states,
-                    down_block_additional_residuals=[
-                        sample.to(dtype=weight_dtype) for sample in down_block_res_samples_ref_2
-                    ],
-                    mid_block_additional_residual=mid_block_res_sample_ref_2.to(dtype=weight_dtype),
-                    return_dict=False,
-                )[0]
-
-                #print("SCORES: ", int(batch["ranks_t_1"][0]), int(batch["ranks_t_2"][0]), int(batch["ranks_m_1"][0]), int(batch["ranks_m_2"][0]))
+                    down_block_res_samples_ref_2, mid_block_res_sample_ref_2 = controlnet_ref(
+                        noisy_latents_2,
+                        timesteps,
+                        encoder_hidden_states=encoder_hidden_states,
+                        controlnet_cond=controlnet_image,
+                        return_dict=False,
+                    )
+                    model_pred_ref_2 = unet_ref(
+                        noisy_latents_2,
+                        timesteps,
+                        encoder_hidden_states=encoder_hidden_states,
+                        down_block_additional_residuals=[
+                            sample.to(dtype=weight_dtype) for sample in down_block_res_samples_ref_2
+                        ],
+                        mid_block_additional_residual=mid_block_res_sample_ref_2.to(dtype=weight_dtype),
+                        return_dict=False,
+                    )[0]
+                
+                    del down_block_res_samples_ref_2
+                    del mid_block_res_sample_ref_2
                 
                 # Get the target for loss depending on the prediction type
                 if noise_scheduler.config.prediction_type == "epsilon":
@@ -1270,7 +1286,7 @@ def main(args):
                 
                 loss_text = 0
                 loss_mask = 0
-                
+               
                 err_1 = (model_pred_1.float() - target.float()).pow(2).mean(dim=[1,2,3])
                 err_2 = (model_pred_2.float() - target.float()).pow(2).mean(dim=[1,2,3])
                 err_ref_1 = (model_pred_ref_1.float() - target.float()).pow(2).mean(dim=[1,2,3])
