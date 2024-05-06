@@ -1302,11 +1302,11 @@ def main(args):
                     w_diff = 0
                     l_diff = 0
                     if (ranks_t_1 > ranks_t_2):
-                        w_diff = err_1 - err_ref_1
-                        l_diff = err_2 - err_ref_2
+                        w_diff = ranks_t_1 * (err_1 - err_ref_1)
+                        l_diff = ranks_t_2 * (err_2 - err_ref_2)
                     if (ranks_t_2 > ranks_t_1):
-                        w_diff = err_2 - err_ref_2
-                        l_diff = err_1 - err_ref_1 
+                        w_diff = ranks_t_2 * (err_2 - err_ref_2)
+                        l_diff = ranks_t_1 * (err_1 - err_ref_1)
                     inside_term = scale_term * (w_diff - l_diff)
                     loss_text = -1 * F.logsigmoid(inside_term).mean()
 
@@ -1320,11 +1320,11 @@ def main(args):
                     w_diff = 0
                     l_diff = 0
                     if (ranks_m_1 > ranks_m_2):
-                        w_diff = err_1 - err_ref_1
-                        l_diff = err_2 - err_ref_2
+                        w_diff = ranks_m_1 * (err_1 - err_ref_1)
+                        l_diff = ranks_m_2 * (err_2 - err_ref_2)
                     if (ranks_m_2 > ranks_m_1):
-                        w_diff = err_2 - err_ref_2
-                        l_diff = err_1 - err_ref_1 
+                        w_diff = ranks_m_2 * (err_2 - err_ref_2)
+                        l_diff = ranks_m_1 * (err_1 - err_ref_1) 
                     inside_term = scale_term * (w_diff - l_diff)
                     loss_mask = -1 * F.logsigmoid(inside_term).mean()
 
