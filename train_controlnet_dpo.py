@@ -302,6 +302,7 @@ def parse_args(input_args=None):
         help="The directory where the downloaded models and datasets will be stored.",
     )
     parser.add_argument("--seed", type=int, default=None, help="A seed for reproducible training.")
+    parser.add_argument("--max_rank", type=float, default=5.0, help="Maximum rank for text/masks.")
     parser.add_argument(
         "--resolution",
         type=int,
@@ -1302,11 +1303,11 @@ def main(args):
                     w_diff = 0
                     l_diff = 0
                     if (ranks_t_1 > ranks_t_2):
-                        w_diff = ranks_t_1 * (err_1 - err_ref_1)
-                        l_diff = ranks_t_2 * (err_2 - err_ref_2)
+                        w_diff = (ranks_t_1/args.max_rank) * (err_1 - err_ref_1)
+                        l_diff = (ranks_t_2/args.max_rank) * (err_2 - err_ref_2)
                     if (ranks_t_2 > ranks_t_1):
-                        w_diff = ranks_t_2 * (err_2 - err_ref_2)
-                        l_diff = ranks_t_1 * (err_1 - err_ref_1)
+                        w_diff = (ranks_t_2/args.max_rank) * (err_2 - err_ref_2)
+                        l_diff = (ranks_t_1/args.max_rank) * (err_1 - err_ref_1)
                     inside_term = scale_term * (w_diff - l_diff)
                     loss_text = -1 * F.logsigmoid(inside_term).mean()
 
@@ -1320,11 +1321,11 @@ def main(args):
                     w_diff = 0
                     l_diff = 0
                     if (ranks_m_1 > ranks_m_2):
-                        w_diff = ranks_m_1 * (err_1 - err_ref_1)
-                        l_diff = ranks_m_2 * (err_2 - err_ref_2)
+                        w_diff = (ranks_m_1/args.max_rank) * (err_1 - err_ref_1)
+                        l_diff = (ranks_m_2/args.max_rank) * (err_2 - err_ref_2)
                     if (ranks_m_2 > ranks_m_1):
-                        w_diff = ranks_m_2 * (err_2 - err_ref_2)
-                        l_diff = ranks_m_1 * (err_1 - err_ref_1) 
+                        w_diff = (ranks_m_2/args.max_rank) * (err_2 - err_ref_2)
+                        l_diff = (ranks_m_1/args.max_rank) * (err_1 - err_ref_1) 
                     inside_term = scale_term * (w_diff - l_diff)
                     loss_mask = -1 * F.logsigmoid(inside_term).mean()
 
