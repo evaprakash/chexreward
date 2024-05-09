@@ -1309,6 +1309,8 @@ def main(args):
                         w_diff = (ranks_t_2/args.max_rank) * (err_2 - err_ref_2)
                         l_diff = (ranks_t_1/args.max_rank) * (err_1 - err_ref_1)
                     inside_term = scale_term * (w_diff - l_diff)
+                    if not torch.is_tensor(inside_term):
+                        inside_term = torch.tensor(inside_term)
                     loss_text = -1 * F.logsigmoid(inside_term).mean()
 
                 #Mask-based loss
@@ -1327,6 +1329,8 @@ def main(args):
                         w_diff = (ranks_m_2/args.max_rank) * (err_2 - err_ref_2)
                         l_diff = (ranks_m_1/args.max_rank) * (err_1 - err_ref_1) 
                     inside_term = scale_term * (w_diff - l_diff)
+                    if not torch.is_tensor(inside_term):
+                        inside_term = torch.tensor(inside_term)
                     loss_mask = -1 * F.logsigmoid(inside_term).mean()
 
                 loss = 0.5 * (loss_mask + loss_text)
