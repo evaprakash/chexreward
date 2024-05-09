@@ -1,0 +1,785 @@
+image_id,prompt
+mimic_275,consolidation in right perihilar region
+mimic_1021,right hemidiaphragm elevation with basilar atelectasis
+mimic_494,opacity on lingula suggests pneumonia
+mimic_886,multifocal opacities in chest observed
+mimic_662,left lower lobe pneumonia suspected
+mimic_360,large bilateral pleural effusions present
+mimic_1049,moderate right pleural effusion atelectasis
+mimic_955,atelectasis consolidation and bilateral pleural effusions
+mimic_42,ng tube visualization potentially inadequate
+mimic_92,multiple small calcified nodular opacities detected
+mimic_727,right pleural effusion post catheter removal
+mimic_402,subcutaneous air and pigtail catheter
+mimic_217,minimal right middle lobe atelectasis
+mimic_120,substantial pulmonary edema bilateral pleural effusions
+mimic_854,"endotracheal tube above carina, cardiomegaly, bilateral pleural effusions"
+mimic_831,new mild edema obscures right aspiration
+mimic_116,residual left lower lobe atelectasis
+mimic_944,left lung appearance looks problematic
+mimic_1013,cardiomegaly and small bilateral pleural effusions
+mimic_109,small right apical pneumothorax detected
+mimic_259,endotracheal nasogastric tubes correctly positioned
+mimic_451,left picc line in axillary vein
+mimic_663,left hemithorax opacification and mediastinal displacement
+mimic_105,left pleural effusion and possible pneumonia
+mimic_549,right upper lobe collapse detected
+mimic_823,low lung volumes noted
+mimic_283,persistent opacities in right lung
+mimic_1040,atelectasis in left lower lobe
+mimic_41,diffuse pulmonary opacification left base
+mimic_793,hilar mediastinal lymphadenopathy small left effusion
+mimic_425,residual pneumothorax and bilateral effusions
+mimic_272,right mid and lower consolidation
+mimic_50,right picc line over mid svc
+mimic_899,opacity in right lower progressed
+mimic_21,moderate cardiomegaly mild aortic tortuosity detected
+mimic_715,right pleural effusion and cardiomegaly persist
+mimic_354,small left pneumothorax and effusion
+mimic_875,bilateral pleural effusions bibasilar consolidations present
+mimic_265,severe right lung pulmonary consolidation
+mimic_822,dominant left upper lobe nodule
+mimic_1122,faint right lower lobe opacity
+mimic_429,bibasilar atelectasis and pleural effusions present
+mimic_234,extensive bilateral pneumonia small right effusion
+mimic_697,persistent right lower lobe atelectasis detected
+mimic_215,right parenchymal opacities mild cardiomegaly detected
+mimic_816,metallic fragmentation in left lower lung
+mimic_878,right scapular fracture low inspiratory volumes
+mimic_852,et tube standard position confirmed
+mimic_358,mild basilar atelectasis detected
+mimic_308,bibasal consolidations and vascular congestion present
+mimic_136,moderate cardiomegaly partial left atelectasis detected
+mimic_183,possible right upper lobe adenocarcinoma
+mimic_557,enteric tube tip in stomach
+mimic_835,mild cardiomegaly low lung volumes
+mimic_628,loss of thoracic vertebral body height
+mimic_365,extubation and interstitial edema present
+mimic_1028,bilateral pleural effusions mild pulmonary edema
+mimic_612,right apical pleural tube present
+mimic_619,subcutaneous emphysema and bibasilar opacities detected
+mimic_540,moderate pulmonary edema large effusion
+mimic_1050,mild pulmonary edema moderate atelectasis
+mimic_7,aorta tortuous lungs clear normal
+mimic_585,focal opacity and mild pulmonary congestion
+mimic_879,tiny right apical pneumothorax present
+mimic_519,rightward deviation of trachea apparent
+mimic_1057,right and left lobe pneumonia
+mimic_438,bilateral pleural thickening and bibasilar atelectasis
+mimic_517,low lung volumes no consolidation
+mimic_553,"mildly enlarged cardiac silhouette, bilateral effusions"
+mimic_221,substantial cardiac silhouette enlargement observed
+mimic_692,nasogastric tube and endotracheal tube placement
+mimic_398,right lung opacity left effusion
+mimic_1151,low lung volumes pulmonary edema
+mimic_579,possible nodule in right lung
+mimic_454,central venous line repositioned upper svc
+mimic_885,dobbhoff tube coiled in stomach
+mimic_172,aneurysm and dilatation in aorta
+mimic_1034,copd moderate cardiomegaly bibasilar atelectasis detected
+mimic_72,pacing device and mild pulmonary edema
+mimic_999,left central venous line present
+mimic_597,right upper lobe consolidation probable pneumonia
+mimic_791,hyperinflated lungs detected no pneumonia
+mimic_431,persistent bibasilar pneumonia and metastases
+mimic_178,right hemidiaphragm relatively elevated today
+mimic_709,resolved right pleural effusion mild cardiomegaly
+mimic_3,moderate pulmonary edema and atelectasis
+mimic_818,increased soft tissue thickening observed
+mimic_700,moderate bilateral pleural effusions persist
+mimic_1065,post-treatment changes in left lung
+mimic_813,subtle right lower lobe opacity
+mimic_483,mild pulmonary edema large effusion
+mimic_729,nasogastric tube removed right picc
+mimic_276,severe cardiomegaly with swan-ganz catheter
+mimic_495,mild vascular congestion detected newly
+mimic_134,moderate cardiomegaly and low lung volumes
+mimic_774,cardiomegaly and interstitial pulmonary edema detected
+mimic_520,normal with leftward tracheal deviation
+mimic_1020,"nasogastric tube positioned, right lung atelectasis"
+mimic_2,bilateral pleural effusions right dominant
+mimic_406,bibasilar patchy opacities and apical scarring
+mimic_78,asymmetric consolidation in right lung
+mimic_826,retrocardiac opacity suggestive of atelectasis
+mimic_671,severe emphysema and left perihilar consolidation
+mimic_1022,nasogastric tube misplacement and atelectasis detected
+mimic_327,endotracheal tube positioned above carina
+mimic_779,slight fullness at right thoracic
+mimic_644,moderate cardiomegaly with mild fluid overload
+mimic_1098,low lung volumes mild congestion
+mimic_613,moderate to large right pneumothorax
+mimic_165,left lower lobe pneumonia detected
+mimic_372,chronic elevation left hemidiaphragm basilar atelectasis
+mimic_770,normal intrathoracic process and pulmonary edema
+mimic_16,severe cardiomegaly and left pleural thickening
+mimic_137,cardiomegaly with bilateral parenchymal opacities detected
+mimic_86,severe pulmonary edema and cardiomegaly
+mimic_734,congestive heart failure moderate edema
+mimic_404,left pigtail catheter in place
+mimic_334,substantial pulmonary edema possible pneumonia
+mimic_1084,deformity in left chest observed
+mimic_127,severe cardiomegaly and pulmonary vascular engorgement
+mimic_897,bibasilar opacities likely reflect pleural fluid
+mimic_1090,multi focal pneumonia with pleural effusion
+mimic_200,right picc terminating in upper svc
+mimic_646,shunt discontinuation at cervical thoracic junction
+mimic_572,moderate left and minimal right effusion
+mimic_285,dobhoff tube present in stomach
+mimic_302,mild pulmonary edema bilateral pleural effusions
+mimic_433,bilateral pleural effusions and pneumonia
+mimic_789,left apical pneumothorax and consolidations detected
+mimic_423,small right apical pneumothorax present
+mimic_11,atelectasis and cardiomegaly with fluid overload
+mimic_1019,"nasogastric tube in stomach, retrocardiac opacities present"
+mimic_69,cardiomegaly pulmonary congestion asymmetrical lung pattern
+mimic_453,central venous catheter in right atrium
+mimic_896,bilateral basal plate atelectasis high-positioned diaphragms
+mimic_383,"endotracheal tube, heart enlargement, interstitial edema"
+mimic_99,left lung pleural effusion consolidation present
+mimic_511,mild fluid overload detected
+mimic_212,bilateral parenchymal disease and effusions
+mimic_144,pulmonary edema and left atelectasis detected
+mimic_291,left lower lobe consolidation detected
+mimic_515,pulmonary congestion and mild cardiomegaly detected
+mimic_573,moderate retrocardiac and basilar atelectasis detected
+mimic_305,pulmonary congestion edema chronic cardiomegaly detected
+mimic_911,diffuse bilateral airspace process present
+mimic_672,left perihilar opacification possible pneumonia
+mimic_96,mild pulmonary edema ng tube
+mimic_228,swan-ganz catheter in pulmonary artery
+mimic_883,diffuse opacification indicates disease progression
+mimic_898,"low lung volumes, possible microatelectasis"
+mimic_867,chronic deformity at right clavicle
+mimic_755,hyperinflated lungs with potential abnormalities
+mimic_296,mild chf with bibasilar patchy opacities
+mimic_62,endotracheal and enteric tubes positioned appropriately
+mimic_222,right lung airspace consolidation effusions
+mimic_752,cardiomegaly and vascular congestion detected
+mimic_606,central venous line in svc
+mimic_385,cardiomegaly and pulmonary edema present
+mimic_738,bilateral pulmonary nodules and left effusion
+mimic_712,cardiomegaly without acute cardiopulmonary process
+mimic_536,tracheostomy tube and cardiac silhouette enlargement
+mimic_958,patchy bilateral lower lobe opacities detected
+mimic_946,possible right upper lobe nodules
+mimic_227,picc line incorrectly positioned in atrium
+mimic_675,bullous emphysematous changes in lower lobes
+mimic_680,severe emphysema without acute abnormalities
+mimic_1125,interstitial pulmonary edema with effusions
+mimic_1077,extensive opacification in left hemithorax
+mimic_1087,pneumonia detected in lower lungs
+mimic_799,pneumonia with small pleural effusion detected
+mimic_206,moderate pulmonary edema cardiomegaly bilateral effusions
+mimic_1092,"et tube low, bilateral effusions present"
+mimic_1111,mild cardiomegaly and left pectoral pacemaker
+mimic_342,new bibasilar opacities possibly pneumonia
+mimic_57,probable right-sided aortic arch detected
+mimic_717,right pigtail catheter placement evident
+mimic_732,new small bilateral pleural effusions
+mimic_24,patchy opacity and left effusion
+mimic_1067,moderate left pneumothorax with atelectasis
+mimic_505,resolution of left upper pneumonia
+mimic_279,widespread bilateral parenchymal opacities constant
+mimic_558,moderate right pleural effusion cardiomegaly
+mimic_943,faint nodules throughout the lungs
+mimic_244,layering pleural fluid right hemidiaphragm
+mimic_1110,bilateral pleural effusions and cardiomegaly present
+mimic_203,minimal bibasilar atelectasis detected
+mimic_1066,left pleural effusion and subcutaneous emphysema
+mimic_73,widespread parenchymal opacities moderate cardiomegaly present
+mimic_307,mild congestive heart failure detected
+mimic_688,thyroid goiter widens right paratracheal stripe
+mimic_1056,multifocal pneumonia detected in x-ray
+mimic_871,minimal left-sided pneumothorax not visible
+mimic_252,right atrium picc line placement
+mimic_538,mild pulmonary edema and pleural effusions
+mimic_1141,new retrocardiac atelectasis detected in radiograph
+mimic_923,mild chronic pulmonary congestion detected
+mimic_594,esophageal feeding tube incorrectly positioned
+mimic_232,feeding tube advanced into duodenum
+mimic_941,pigtail catheter inserted right pleural space
+mimic_411,feeding tube repositioned below diaphragm
+mimic_913,prominent heart right basilar effusion
+mimic_599,new left ij central line
+mimic_207,consolidation in right mid-lung detected
+mimic_15,pacemaker leads correctly positioned cardiomegaly
+mimic_776,icd leads and right pleural effusion
+mimic_100,lower chest tube and effusion
+mimic_314,bibasilar opacities suggesting possible pneumonia
+mimic_747,nodule in left lower lobe
+mimic_546,chf interstitial alveolar edema opacity detected
+mimic_412,right base increased opacification possible aspiration
+mimic_1143,moderate pulmonary edema bilateral pleural effusions
+mimic_797,moderate bilateral pleural effusions present
+mimic_156,multifocal pneumonia atypical or viral
+mimic_741,stable right lower lung granuloma
+mimic_184,rounded opacity in right upper lobe
+mimic_775,mild vascular congestion detected
+mimic_1027,pectus deformity detected in chest
+mimic_1150,increased pulmonary vascularity detected
+mimic_993,mild congestion and bullet fragments
+mimic_1045,endotracheal tube intubation and atelectasis detected
+mimic_123,low lung volumes bibasilar opacities present
+mimic_229,moderate right pleural effusion bibasilar atelectasis
+mimic_60,ng tube distal to ge junction
+mimic_895,right mainstem intubation and edema
+mimic_437,right subclavian central line inserted
+mimic_138,endotracheal tube placement and pleural effusion
+mimic_936,right middle lobe opacity detected
+mimic_213,moderate cardiomegaly with possible right nodule
+mimic_124,left lower lung consolidation detected
+mimic_821,pulmonary nodule in left upper lobe
+mimic_781,widespread parenchymal consolidations and bowel distention
+mimic_478,dobbhoff line termination point unidentified
+mimic_20,moderate cardiomegaly mild pulmonary arteries enlargement
+mimic_691,feeding tube repositioned bibasal atelectasis present
+mimic_699,mild bibasilar atelectasis detected
+mimic_1068,right lower lobe pneumonia consolidation
+mimic_1130,severe cardiomegaly post valve repair
+mimic_828,new left perihilar pulmonary opacity
+mimic_1044,enlarged cardiac silhouette bilateral effusions atelectasis
+mimic_767,moderate cardiomegaly detected in patient
+mimic_1133,cardiac silhouette enlargement and pulmonary edema
+mimic_509,copd with potential left pneumonia
+mimic_122,low lung volumes volume overload
+mimic_435,"dobbhoff tube in stomach, right atelectasis and pleural effusion"
+mimic_29,right pleural effusion and pneumonia
+mimic_951,bilateral small pleural effusions detected
+mimic_82,mild cardiomegaly detected in patient
+mimic_1047,bilateral effusions with lower lobe atelectasis
+mimic_857,moderate cardiomegaly and mild pulmonary edema
+mimic_945,intubated patient with left atelectasis
+mimic_1017,bibasilar opacities likely indicate atelectasis
+mimic_1038,mild volume overload detected
+mimic_740,chronic obstructive pulmonary disease detected
+mimic_362,extensive subcutaneous emphysema detected
+mimic_396,right picc line superior svc termination
+mimic_1005,cardiomegaly and mild interstitial edema detected
+mimic_87,mild pulmonary edema and cardiomegaly
+mimic_247,swan ganz tip in artery
+mimic_583,probable bibasilar atelectasis with low volumes
+mimic_949,left pleural effusion retrocardiac opacity detected
+mimic_126,prominent heart calcified aorta lung atelectasis
+mimic_590,endotracheal and enteric tubes appropriately positioned
+mimic_995,right pleural effusion in costophrenic sinus
+mimic_211,right picc line malpositioned at atrium
+mimic_673,focal left basilar lucency observed
+mimic_771,mild central vascular engorgement detected
+mimic_929,prominent pulmonary markings right opacity
+mimic_660,left perihilar mass and opacities detected
+mimic_74,extensive bilateral parenchymal opacities detected
+mimic_684,severe bullous emphysema rightward mediastinal shift
+mimic_1080,endotracheal tube near carina detected
+mimic_773,cardiomegaly without congestive heart failure
+mimic_1051,mild right-sided pleural effusion detected
+mimic_921,cardiomegaly and hilar congestion detected
+mimic_845,persistent mild pulmonary vascular congestion
+mimic_969,retrocardiac opacification suggesting possible pneumonia
+mimic_155,focal opacity in left lobe
+mimic_1083,mild interstitial edema severe emphysema
+mimic_370,multilevel degenerative changes thoracic spine
+mimic_70,widespread parenchymal opacities moderate cardiomegaly
+mimic_988,hyperinflation and thoracic vertebral height loss
+mimic_858,marked bilateral mid-lower lung opacification
+mimic_862,borderline cardiac silhouette minimal atelectasis
+mimic_395,asymmetry of opacification suggests pneumonia
+mimic_56,right basilar opacity possibly atelectasis
+mimic_317,enlarged cardiac silhouette with pulmonary edema
+mimic_963,stable elevation of right hemidiaphragm
+mimic_253,"enlarged cardiac silhouette, left base opacification"
+mimic_859,volume overload and biventricular cardiac decompensation
+mimic_1074,pneumonia resolved in current examination
+mimic_0,large bilateral pleural effusions severe atelectasis
+mimic_526,moderate pulmonary edema bilateral effusions
+mimic_79,interstitial edema and lung fibrosis detected
+mimic_1059,consolidation and fluid in left lung
+mimic_1134,enlarged cardiac silhouette volume loss
+mimic_357,left lower lobe collapse detected
+mimic_736,bilateral pleural effusions with atelectasis
+mimic_633,moderate pulmonary edema present currently
+mimic_338,mild cardiomegaly interstitial pulmonary edema
+mimic_889,diffuse parenchymal opacities and focal consolidation
+mimic_853,left basilar opacity suggests possible pneumonia
+mimic_280,nasogastric and endotracheal tubes positioned correctly
+mimic_293,heterogeneous opacification in lower lungs
+mimic_185,nodular opacity in right apex
+mimic_832,multifocal aspiration or developing pneumonia
+mimic_829,subtle opacity in left lung
+mimic_571,swan-ganz catheter coiled in artery
+mimic_1116,mild cardiomegaly and azygos enlargement detected
+mimic_989,right pneumothorax still clearly visualized
+mimic_978,prominence and subsegmental atelectasis detected
+mimic_282,persistent patchy density in lungs
+mimic_1075,bibasilar opacities and severe emphysema present
+mimic_273,substantial cardiac silhouette enlargement detected
+mimic_249,possible cavities in left lung
+mimic_107,two pleural catheters and mild atelectasis
+mimic_130,bibasilar atelectasis versus consolidation detected
+mimic_1129,pacemaker and transvenous leads present
+mimic_89,mild fibrous scarring bilaterally detected
+mimic_1131,post sternotomy valvular replacement moderate cardiomegaly
+mimic_407,mild opacity in right apex
+mimic_152,patient intubated with moderate aortic tortuosity
+mimic_882,bilateral airspace disease diffuse pneumonia
+mimic_587,mildly enlarged heart volume loss
+mimic_71,bilateral parenchymal opacities likely edema
+mimic_330,substantial bilateral pulmonary edema present
+mimic_281,multifocal pneumonia suspected in lungs
+mimic_764,bilateral pleural effusions right base atelectasis
+mimic_1099,mild pulmonary edema and congestion
+mimic_49,right picc line over right atrium
+mimic_104,left lung opacification and mild cardiomegaly
+mimic_219,right base pleural effusion detected
+mimic_450,unclear visualization of left picc line
+mimic_81,enlarged cardiac silhouette possible atelectasis
+mimic_1058,displaced fractures and left atelectasis
+mimic_427,cardiomegaly and small left pleural effusion
+mimic_160,right subpulmonic pleural effusion detected
+mimic_512,left chest tube removal evident
+mimic_135,moderate pulmonary edema and cardiomegaly
+mimic_490,bilateral calcified pleural plaques present
+mimic_1061,pneumothorax and dense left atelectasis detected
+mimic_589,increased patchy opacity in lungs
+mimic_837,right pic line into atrium
+mimic_635,"slightly enlarged heart, mild redistribution"
+mimic_666,hyper-expanded lungs consistent with emphysema
+mimic_1069,nasogastric tube placed in stomach
+mimic_694,large right mediastinal mass detected
+mimic_17,moderate cardiomegaly and vascular congestion
+mimic_97,right midlung opacity suggests pneumonia
+mimic_648,nasogastric tube correctly positioned in stomach
+mimic_804,ill-defined opacity in right lung
+mimic_1064,left basal lung nodule detected
+mimic_103,small pneumothorax on left side
+mimic_313,substantial bilateral pulmonary edema detected
+mimic_196,acute pulmonary congestion and edema
+mimic_642,borderline size of cardiac silhouette
+mimic_118,bibasilar opacities and mild cardiomegaly
+mimic_1004,stable retrocardiac opacity in left lobe
+mimic_654,mild cardiomegaly and bronchiectasis detected
+mimic_54,multifocal consolidation and right pleural effusion
+mimic_448,low lung volumes bibasilar opacifications present
+mimic_720,loculated right effusion noted prominently
+mimic_447,bibasilar opacities likely represent atelectasis pneumonitis
+mimic_695,right lung consolidation and cardiomegaly
+mimic_834,picc terminates in low svc
+mimic_14,pacemaker and icd leads present
+mimic_242,clearing of mild interstitial edema
+mimic_401,fibrotic cavitary changes in lungs
+mimic_844,right lung opacification and congestion
+mimic_830,mild peribronchial opacification right lower lobe
+mimic_343,right lung base substantial atelectasis
+mimic_323,central pulmonary artery enlargement detected
+mimic_950,bibasilar opacities and pulmonary congestion detected
+mimic_952,new chf with probable edema
+mimic_908,moderate pulmonary vascular engorgement persists
+mimic_850,bilateral effusions with associated atelectasis
+mimic_825,right ij central venous line
+mimic_960,low lung volumes patchy opacities
+mimic_198,moderate left pleural effusion detected
+mimic_464,right subclavian port intact position
+mimic_652,persistent small right lung consolidation
+mimic_256,intra-aortic balloon pump placement correct
+mimic_355,left hydropneumothorax with basilar opacity detected
+mimic_37,endotracheal tube placement above carina
+mimic_784,central venous catheter near cavoatrial junction
+mimic_521,mild cardiomegaly detected no acute disease
+mimic_1006,residual pleural thickening and atelectasis detected
+mimic_325,chf interstitial pulmonary edema consolidation
+mimic_513,postoperative changes and bibasilar atelectasis detected
+mimic_1052,enlarged cardiac silhouette pulmonary congestion
+mimic_1026,new upper enteric drainage tube
+mimic_132,"endotracheal tube low, bilateral effusions present"
+mimic_772,cardiomegaly with mild vascular congestion
+mimic_809,endotracheal ng tubes pulmonary edema
+mimic_565,mild to moderate cardiomegaly detected
+mimic_731,mild bilateral pulmonary edema detected
+mimic_545,bilateral pleural effusions mild cardiomegaly present
+mimic_922,mild cardiac enlargement pulmonary congestion
+mimic_655,large hiatal hernia detected
+mimic_75,early interstitial lung disease mild cardiomegaly
+mimic_231,opacity present in left lung
+mimic_1088,right lung edema and pneumonia
+mimic_210,bilateral apical scar cardiac enlargement
+mimic_1145,massive bilateral parenchymal opacities detected
+mimic_1029,pneumonia in left lower lobe
+mimic_106,minimal opacities and left effusion detected
+mimic_1123,persistent free air and pulmonary edema
+mimic_820,minimal elevation right hemidiaphragm detected
+mimic_610,moderate right pleural effusion detected
+mimic_1053,"right jugular catheter removed, left placed"
+mimic_489,bilateral calcified pleural plaques detected
+mimic_403,small left pneumothorax and emphysema
+mimic_522,left lung consolidation indicates pneumonia
+mimic_933,right lung extensive opacification detected
+mimic_35,extensive parenchymal abnormality and pleural calcifications
+mimic_67,widespread parenchymal opacities no focal consolidation
+mimic_674,right mediastinal shift persists
+mimic_584,possible subacute right rib fracture
+mimic_181,pneumonia detected in left upper lobe
+mimic_987,moderate heart enlargement mild chf
+mimic_170,hyperexpansion of lungs prominent aorta
+mimic_250,no radiographic evidence of pneumonia
+mimic_790,large bilateral lower lobe consolidation
+mimic_959,moderate cardiomegaly and interstitial pulmonary edema
+mimic_965,mostly unremarkable chest findings detected
+mimic_827,subtle patchy opacity in lung
+mimic_462,left lobe collapse bilateral pleural effusions
+mimic_64,low lung volumes bibasilar opacities
+mimic_417,possible left hilum prominence detected
+mimic_551,moderate cardiomegaly mild retrocardiac atelectasis detected
+mimic_893,bilateral moderate-to-severe pulmonary edema
+mimic_503,stable apical scarring right predominance
+mimic_189,right upper lung opacity noted
+mimic_324,pulmonary edema and retracted picc
+mimic_94,left picc tip in position
+mimic_257,severe cardiomegaly with clear lungs
+mimic_410,left pigtail catheter subcutaneous air detected
+mimic_361,moderate bilateral pleural effusions detected
+mimic_299,mild enlargement and aortic tortuosity present
+mimic_375,probable multilobar pneumonia right lung
+mimic_12,moderate cardiomegaly with vascular engorgement detected
+mimic_916,minimal right pleural effusion possible
+mimic_598,diffuse opacification of right hemithorax
+mimic_36,bilateral pleural effusions with atelectasis detected
+mimic_1136,swan-ganz catheter repositioned right pulmonary
+mimic_205,bronchovascular crowding in left infrahilar region
+mimic_33,moderate pulmonary edema right pleural effusion
+mimic_586,ett placement too deep in chest
+mimic_942,left chest tube tiny pneumothorax
+mimic_421,minimal left basilar atelectasis detected
+mimic_337,low lung volumes likely atelectasis
+mimic_1102,mild pulmonary venous pressure elevation
+mimic_6,moderate left pleural effusion present
+mimic_224,small left pleural effusion detected
+mimic_903,moderate pulmonary edema and pneumonia
+mimic_460,probable right lower lobe pneumonia
+mimic_901,severe interstitial pulmonary edema detected
+mimic_742,small left-sided pleural effusion detected
+mimic_301,moderate cardiomegaly minimal right effusion
+mimic_1147,interstitial pulmonary edema and effusions
+mimic_139,right pleural effusion cardiomegaly pulmonary edema
+mimic_725,small left right pleural effusion
+mimic_442,lungs are clear
+mimic_46,moderate pulmonary edema in left lung
+mimic_416,right lung base opacities detected
+mimic_985,ill defined opacity left rib
+mimic_389,mild edema with multifocal opacities present
+mimic_1000,innumerable bilateral nodular opacities detected
+mimic_1108,pulmonary edema with bibasilar opacities present
+mimic_186,left lower lobe opacity detected
+mimic_80,radiopaque densities in esophagus stomach
+mimic_143,prominence of hila possible lymphadenopathy
+mimic_48,bilateral layering effusions granulomatous infection present
+mimic_5,small bilateral effusions larger left
+mimic_39,chronic changes no evidence pneumonia
+mimic_676,extensive emphysema with possible pneumothorax
+mimic_477,bilateral pleural effusion and pulmonary congestion
+mimic_1031,"low lung volumes, mild vascular congestion"
+mimic_390,small left pleural effusion present
+mimic_534,extensive bilateral pleural effusions detected
+mimic_320,et tube positioned bibasilar opacities present
+mimic_802,probable atelectasis at right lung
+mimic_114,small right pleural effusion detected
+mimic_914,small pneumothorax at right apex
+mimic_870,atelectasis in both lower lungs
+mimic_269,mild pulmonary edema and mispositioned pump
+mimic_510,right upper middle lobe pneumonia
+mimic_838,left lung consolidation right cavitation
+mimic_930,persistent right upper lobe opacity
+mimic_714,right apical pneumothorax and enlarged heart
+mimic_703,right pleural effusion and basal atelectasis
+mimic_153,mild overinflation minimal apical scarring
+mimic_530,widening mediastinum and lower lobe collapse
+mimic_640,left lower lobe atelectasis detected
+mimic_474,new opacification at right lung base
+mimic_627,subtle opacities in lower lungs
+mimic_915,intra aortic balloon pump detected
+mimic_1107,new right mid lung opacification
+mimic_469,small right upper lung pneumonia
+mimic_724,"right catheter, pleural effusion, apical pneumothorax"
+mimic_616,"patchy opacity, emphysema, possible malignancy detected"
+mimic_409,residual tuberculosis in right lung apex
+mimic_919,moderate cardiomegaly hemodialysis catheter present
+mimic_961,pulmonary edema and possible pneumonia
+mimic_300,bibasilar atelectasis and small pleural effusions
+mimic_388,interstitial markings and moderate cardiomegaly detected
+mimic_177,mild scoliosis of thoracic spine
+mimic_465,port-a-cath terminates in svc
+mimic_605,new right basilar opacities detected
+mimic_436,left lung base opacification noted
+mimic_363,large bilateral pleural effusions detected
+mimic_51,moderate pulmonary edema small effusions
+mimic_868,possible mild central adenopathy detected
+mimic_749,residual left pleural effusion detected
+mimic_970,left basal opacity interstitial edema present
+mimic_718,moderate right and small left effusions
+mimic_788,left chest tube and opacity
+mimic_1113,mild cardiomegaly with left pectoral pacemaker
+mimic_777,et and enteric tubes positioned correctly
+mimic_865,mild congestion and pulmonary edema
+mimic_681,severe emphysema mild left consolidation
+mimic_532,small bilateral pleural effusion present
+mimic_312,bilateral perihilar ill-defined airspace opacities
+mimic_1012,persistent left-sided pleural effusion detected
+mimic_630,moderate cardiomegaly and bibasilar atelectasis
+mimic_441,evidence of recent spinal surgery
+mimic_601,right upper lobe mass detected
+mimic_940,et tube repositioned severe bilateral consolidation
+mimic_723,pacemaker in position mild pulmonary edema
+mimic_112,large right-sided pleural effusion detected
+mimic_147,right-sided pleural effusion and atelectasis
+mimic_443,et tube in standard placement
+mimic_230,right-sided parenchymal opacities suggest pneumonia
+mimic_400,left chest tube properly positioned
+mimic_900,endotracheal tube and dialysis catheter placed
+mimic_1149,extensive bilateral parenchymal opacities present
+mimic_629,low lung volumes central catheter
+mimic_892,bilateral extensive pulmonary opacities detected
+mimic_591,mild pulmonary pressure elevation detected
+mimic_271,severe consolidation and bilateral pleural effusion
+mimic_669,pneumonia and pleural effusion detected bilaterally
+mimic_470,left lung mass detected visually
+mimic_264,right middle lower lobe pneumonia
+mimic_529,tracheostomy tube moderate bilateral effusions
+mimic_113,right apical pneumothorax and pleural effusion
+mimic_1007,small left effusion basilar atelectasis detected
+mimic_1128,enlarged cardiomediastinal silhouette with pacer device
+mimic_618,opacity inferior to right bronchus
+mimic_704,improving heart failure detected
+mimic_246,minimal left pleural effusion detected
+mimic_419,questionable nodular opacity right cardiac border
+mimic_679,severe emphysema suggests antitrypsin deficiency
+mimic_846,bilateral pleural effusions with compressive atelectasis
+mimic_1101,endotracheal and enteric tubes positioned
+mimic_254,moderate cardiomegaly and left pleural effusion
+mimic_23,elevated left hemidiaphragm blunting costophrenic angle
+mimic_192,large hiatal hernia and bone metastases
+mimic_336,mild cardiomegaly prominent central pulmonary arteries
+mimic_698,endotracheal tube and mediastinal mass present
+mimic_466,right picc ends in svc
+mimic_659,developing right upper lobe opacities
+mimic_382,"endotracheal tube high, cardiomegaly, congestion"
+mimic_888,small-to-moderate right apical pneumothorax present
+mimic_860,borderline interstitial edema moderate cardiomegaly
+mimic_108,pigtail catheter in right base
+mimic_241,right lung atelectasis possible pneumonia
+mimic_392,left pleural effusion and atelectasis present
+mimic_508,right lower lung opacity detected
+mimic_920,right catheter terminating in atrium
+mimic_131,subtotal left lung collapse detected
+mimic_182,low lung volumes causing crowding
+mimic_1142,pulmonary edema and stable cardiomegaly
+mimic_128,endotracheal tube near carina overdistended cuff
+mimic_44,"endotracheal tube above carina, atelectasis present"
+mimic_121,cardiomegaly with bilateral pleural effusions present
+mimic_422,pulmonary edema present in patient
+mimic_426,severe pulmonary edema bilateral pleural effusion
+mimic_528,bilateral interstitial infiltrates and left atelectasis
+mimic_686,"substantial lung hyperexpansion, possible hypertension"
+mimic_408,right lower lobe opacity detected
+mimic_1121,mild pulmonary edema and pneumoperitoneum
+mimic_284,right base atelectasis with pleural effusion
+mimic_977,bilateral interstitial pattern with predominance
+mimic_909,moderately severe pulmonary edema detected
+mimic_481,bilateral pleural effusions moderate pulmonary edema
+mimic_980,subtle interstitial opacities possibly present
+mimic_188,cardiomegaly with mild pulmonary edema
+mimic_1009,cardiac silhouette enlargement interstitial edema detected
+mimic_932,markedly enlarged cardiac silhouette observed
+mimic_948,"hardware in cervical spine, atelectasis, pleural effusion, severe thoracolumbar scoliosis"
+mimic_98,endotracheal tube placement and hyperexpansion
+mimic_806,"low lung volumes, pulmonary vascular congestion"
+mimic_339,opacification at left base observed
+mimic_83,mild pulmonary vascular congestion detected
+mimic_766,mild pulmonary vascular engorgement detected
+mimic_1062,subcutaneous emphysema and left atelectasis detected
+mimic_994,"right hemithorax fully opacified, possible atelectasis"
+mimic_975,low lung volumes mild atelectasis
+mimic_833,low lung volumes mild cardiomegaly
+mimic_146,right pleural effusion almost drained
+mimic_962,moderate pulmonary edema detected
+mimic_1,bilateral pleural effusions cardiomegaly mild edema
+mimic_753,consolidation in right lower lobe
+mimic_658,large hiatal hernia detected intrathoracically
+mimic_728,substantial right pleural effusion reaccumulated
+mimic_359,left basilar thoracostomy tube right effusion
+mimic_710,right pleural effusion and cardiomegaly detected
+mimic_486,right hemidiaphragm mildly elevated
+mimic_195,minimal left apical pneumothorax moderate effusion
+mimic_498,moderate bilateral pleural effusions possible pneumonia
+mimic_874,endotracheal tube positioned near clavicular heads
+mimic_730,dobhoff tube coiled in stomach
+mimic_554,pulmonary edema and bilateral effusions
+mimic_996,large bilateral pleural effusions with atelectasis
+mimic_506,chronic changes in lungs detected
+mimic_366,left basilar opacity possibly atelectasis
+mimic_998,left-sided picc line confirmed mid-svc
+mimic_523,mild atelectasis hyperinflated lungs enlarged heart
+mimic_848,enlarged heart possible pericardial effusion detected
+mimic_174,small bilateral effusions detected
+mimic_1155,emphysema mild congestion edema cardiomegaly atelectasis
+mimic_677,left picc line in lower svc
+mimic_1036,left effusion and base consolidation
+mimic_924,prominence of cardiac silhouette noted
+mimic_485,"thoracentesis performed, small residual process present"
+mimic_166,right mid lung bandlike opacity
+mimic_639,right upper lung atelectasis detected
+mimic_986,moderate cardiomegaly and pulmonary edema
+mimic_1137,pulmonary edema and pleural effusions present
+mimic_947,ng tube in adequate position
+mimic_235,diffuse opacification in right hemithorax
+mimic_527,persistent retrocardiac consolidation and atelectasis
+mimic_151,small right pleural effusion present
+mimic_444,ng tube in the midesophagus
+mimic_199,small right moderate left effusion
+mimic_650,et tube and dobbhoff tube positioned
+mimic_310,mild pulmonary edema detected
+mimic_482,pulmonary edema possible infectious infiltrate detected
+mimic_824,mild cardiomegaly and pulmonary edema
+mimic_142,consolidation in left lower lobe
+mimic_159,resolution of right pleural effusion
+mimic_63,mild cardiomegaly with retrocardiac atelectasis detected
+mimic_754,retrocardiac opacity suggests atelectasis or infection
+mimic_315,bilateral parenchymal opacities suggest multifocal pneumonia
+mimic_1109,prominent right hilum bibasilar opacities present
+mimic_399,mild pulmonary edema bilateral effusions
+mimic_292,mild lung volumes increase detected
+mimic_208,bibasilar patchy opacities suggest aspiration
+mimic_745,large left-sided pleural effusion noted
+mimic_346,right upper lobe collapse persistent
+mimic_876,et tube and enteric tube malpositioned
+mimic_274,dense left basilar opacification observed
+mimic_262,swan-ganz catheter in right pulmonary
+mimic_1055,moderate cardiomegaly and severe pulmonary edema
+mimic_380,right picc tip in svc
+mimic_552,et tube and dobhoff correctly positioned
+mimic_803,mildly enlarged cardiac silhouette detected
+mimic_873,diffuse bilateral parenchymal opacities detected
+mimic_561,endotracheal tube placement near carina
+mimic_187,right upper lobe opacity concerning
+mimic_191,large hiatal hernia sclerotic metastases present
+mimic_168,left lower lobe consolidation infection
+mimic_233,recurrent left pleural effusion detected
+mimic_604,right internal jugular line present
+mimic_214,endotracheal tube advanced above carina
+mimic_377,feeding tube curled in stomach
+mimic_849,moderate cardiomegaly and aortic tortuosity detected
+mimic_971,endotracheal tube and mild edema
+mimic_1030,small left pneumothorax not visible
+mimic_696,et tube displaced by thyroid mass
+mimic_93,right picc terminating in axilla
+mimic_926,marked thoracic scoliosis large hiatal hernia
+mimic_1041,increased density over aortic arch
+mimic_967,pneumomediastinum not evident in plain film
+mimic_260,feeding tube placement and opacities
+mimic_890,diffuse bilateral pulmonary opacities detected
+mimic_115,small hydropneumothorax in right pleura
+mimic_332,persistent reticular perihilar markings present
+mimic_531,mild right-sided pleural effusion probable
+mimic_1085,et tube misplacement bilateral pleural effusions
+mimic_65,et tube and ng tube positioned
+mimic_459,bilateral effusions with adjacent atelectasis present
+mimic_1106,tiny left pleural effusion detected
+mimic_1154,mild interstitial edema left basilar opacity
+mimic_808,et tube and low lung volumes
+mimic_286,bilateral lower lobe pneumonia detected
+mimic_602,right upper lobe lung cancer
+mimic_815,minimal basal opacities suggest atelectasis
+mimic_311,pulmonary vascular congestion has resolved
+mimic_53,mild to moderate pulmonary edema
+mimic_129,endotracheal tube low pulmonary edema
+mimic_30,right lower lobe pneumonia detected
+mimic_238,heterogeneous consolidation and possible effusion
+mimic_750,residual interstitial edema and hiatal hernia
+mimic_193,og tube placement over fundus detected
+mimic_716,minimal right pleural effusion detected
+mimic_1114,mild hyperinflation detected in lungs
+mimic_722,right chest wall catheter placement
+mimic_632,congestive heart failure detected
+mimic_38,moderate cardiomegaly and parenchymal opacities present
+mimic_739,bilateral pleural effusions adjacent atelectasis
+mimic_125,mild edema with bibasilar atelectasis present
+mimic_157,possible scarring from lingular opacity
+mimic_384,mild heart enlargement pulmonary hyperinflation
+mimic_251,heterogeneous opacities right upper lobe
+mimic_34,diffuse bilateral pulmonary opacification detected
+mimic_328,pulmonary vascular congestion detected
+mimic_68,interstitial lung disease with pulmonary edema
+mimic_1119,cardiomegaly detected no pulmonary complications
+mimic_1016,right lower hemithorax opacification observed
+mimic_1039,low lung volumes patchy atelectasis
+mimic_59,lower lungs consolidation and effusions
+mimic_1042,"endotracheal tube correctly positioned, retrocardiac consolidation"
+mimic_1124,new right upper lobe opacification detected
+mimic_778,"ng tube in stomach, possible ileus or obstruction, left port-a-cath in right atrium, likely left base atelectasis"
+mimic_665,asbestos-related pleural plaques detected
+mimic_576,low lung volumes detected
+mimic_667,diffuse opacities suggest multifocal pneumonia
+mimic_76,prominent heart and interstitial lung disease
+mimic_491,lower lung volumes possible atelectasis
+mimic_449,mild platelike atelectasis in right
+mimic_1023,subtle opacity suggests left lung pneumonia
+mimic_374,endotracheal and nasogastric tubes positioned appropriately
+mimic_542,mild cardiomegaly bilateral pleural effusions atelectasis
+mimic_894,persistent widespread pulmonary opacities detected
+mimic_266,right middle and lower lobes pneumonia
+mimic_795,possible pneumonia or interstitial disease
+mimic_678,severe bullous emphysema possible small pneumonia
+mimic_556,enlarged cardiac silhouette haziness pleural effusions
+mimic_507,severe left lung opacity persistent
+mimic_1015,mild cardiac enlargement left ventricular prominence
+mimic_352,possible left apical pleural surface
+mimic_1018,low volume lungs but clear
+mimic_836,"nasogastric tube placement, right pneumonia detected"
+mimic_248,multifocal pulmonary consolidation with cardiomegaly
+mimic_1001,crowded bilateral nodular opacities detected
+mimic_340,residual bibasilar atelectasis in lungs
+mimic_27,mildly displaced right rib fractures
+mimic_501,pacemaker and leads in heart
+mimic_378,ng tube tip in stomach
+mimic_226,intra-aortic balloon pump malpositioned
+mimic_541,suspected trace right pleural effusion
+mimic_158,left lung base opacity observed
+mimic_653,elevation of left hemidiaphragm detected
+mimic_843,right picc retracted upper-to-mid svc
+mimic_866,stable right perihilar opacity noted
+mimic_783,extensive right lower lobe consolidation
+mimic_762,widened mediastinum possible aortic pathology
+mimic_239,right base opacification and cardiomegaly
+mimic_1105,port-a-cath tip over svc
+mimic_1073,clearing of bibasilar consolidation noted
+mimic_1060,resolution of left apical pneumothorax
+mimic_1014,moderate left pleural effusion reticulonodular opacities
+mimic_263,extensive multifocal pneumonia and cardiomegaly
+mimic_480,bilateral nodules and left lobe consolidation
+mimic_881,bilateral diffuse ground-glass opacities detected
+mimic_689,elevated right hemidiaphragm possible effusion
+mimic_368,elongation of descending aorta detected
+mimic_209,subtle left base streaky opacity
+mimic_984,interstitial markings overlying fifth rib
+mimic_981,possible atelectasis at right lung base
+mimic_840,distended loops of large bowel
+mimic_737,low lung volumes accentuate heart
+mimic_756,small bilateral effusions with atelectasis present
+mimic_588,linear atelectasis in the lingula
+mimic_318,nodular opacity in right lower lung
+mimic_765,mildly enlarged cardiac silhouette observed
+mimic_25,small bilateral pleural effusions detected
+mimic_194,"et tube placement, cardiomegaly, chf, effusion"
+mimic_473,mild bilateral rounded opacities detected
+mimic_1063,small left pneumothorax bibasilar atelectasis present
+mimic_687,severe emphysema with vascular deficiency detected
+mimic_201,"right picc retracted, possible developing pneumonia"
+mimic_381,mild pulmonary edema moderate cardiomegaly
+mimic_855,cervical fusion and cardiac silhouette enlargement
+mimic_225,"cardiac device, pleural effusion, cardiomegaly present"
+mimic_569,copd and left basilar atelectasis
+mimic_964,elevated right hemidiaphragm clear lungs
+mimic_841,linear left basilar atelectasis detected
+mimic_306,left lower lung opacity detected
+mimic_743,large left pleural effusion detected
+mimic_884,stable mild prominence of left hila
+mimic_595,enlarged cardiac silhouette basilar atelectasis present
+mimic_149,atelectasis in right middle lobe
+mimic_393,right fifth rib fracture detected
