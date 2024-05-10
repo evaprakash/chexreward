@@ -1369,7 +1369,7 @@ def main(args):
                                 for removing_checkpoint in removing_checkpoints:
                                     removing_checkpoint = os.path.join(args.output_dir, removing_checkpoint)
                                     shutil.rmtree(removing_checkpoint)
-
+                        torch.save(unet.state_dict(), args.output_dir + '/unet/diffusion_pytorch_model_' + str(global_step) + '.bin')
                         save_path = os.path.join(args.output_dir, f"checkpoint-{global_step}")
                         accelerator.save_state(save_path)
                         logger.info(f"Saved state to {save_path}")
