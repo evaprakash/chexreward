@@ -9,7 +9,7 @@ from transformers import AutoTokenizer, AutoModelForMaskedLM, PretrainedConfig
 
 
 base_model_path = "roent-gen-v1-0"
-controlnet_path = "saved_model/checkpoint-1000/"
+controlnet_path = "saved_model/checkpoint-750/"
 
 unet = UNet2DConditionModel.from_pretrained("saved_model", subfolder="unet", revision=None, variant=None, torch_dtype=torch.float16)
 
@@ -21,12 +21,12 @@ pipe.scheduler = UniPCMultistepScheduler.from_config(pipe.scheduler.config)
 # memory optimization.
 pipe.enable_model_cpu_offload()
 
-control_image = Image.new("RGB", (512, 512))
-#control_image = Image.open("train_data/images/m2i/9.7.46.943600.77.0.4.6.04465311658.1763944012815.4_ptx_mask_1.jpg")
+#control_image = Image.new("RGB", (512, 512))
+control_image = Image.open("train_data/images/m2i/9.7.46.943600.77.0.4.6.04465311658.1763944012815.4_ptx_mask_1.jpg")
 conditioning_image_transforms = transforms.Compose([transforms.Resize(512, interpolation=transforms.InterpolationMode.BILINEAR), transforms.CenterCrop(512), transforms.RandomHorizontalFlip(p=1)])
 control_image = conditioning_image_transforms(control_image)
-prompt="mild pulmonary congestion and cardiomegaly"
-#prompt="N/A"
+#prompt="mild pulmonary congestion and cardiomegaly"
+prompt="N/A"
 print(np.array(control_image).dtype, print(control_image))
 # generate image
 for i in range(4):

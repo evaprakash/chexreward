@@ -22,7 +22,8 @@ import os
 import random
 import shutil
 from pathlib import Path
-
+from ImageReward import ImageReward
+from torchvision.transforms import Compose, Resize, CenterCrop, ToTensor, Normalize
 import accelerate
 import numpy as np
 import torch
@@ -55,7 +56,6 @@ from diffusers.utils.hub_utils import load_or_create_model_card, populate_model_
 from diffusers.utils.import_utils import is_xformers_available
 from diffusers.utils.torch_utils import is_compiled_module
 
-
 if is_wandb_available():
     import wandb
 
@@ -75,6 +75,11 @@ def image_grid(imgs, rows, cols):
         grid.paste(img, box=(i % cols * w, i // cols * h))
     return grid
 
+try:
+    from torchvision.transforms import InterpolationMode
+    BICUBIC = InterpolationMode.BICUBIC
+except ImportError:
+    BICUBIC = Image.BICUBIC
 
 def log_validation(
     vae, text_encoder, tokenizer, unet, controlnet, args, accelerator, weight_dtype, step, is_final_validation=False
@@ -265,12 +270,6 @@ def parse_args(input_args=None):
         " If not specified controlnet weights are initialized from unet.",
     )
     parser.add_argument(
-        "--ref_model_name_or_path",
-        type=str,
-        default=None,
-        help="Path to pretrained controlnet reference model if using DPO.",
-    )
-    parser.add_argument(
         "--revision",
         type=str,
         default=None,
@@ -302,7 +301,6 @@ def parse_args(input_args=None):
         help="The directory where the downloaded models and datasets will be stored.",
     )
     parser.add_argument("--seed", type=int, default=None, help="A seed for reproducible training.")
-    parser.add_argument("--max_rank", type=float, default=5.0, help="Maximum rank for text/masks.")
     parser.add_argument(
         "--resolution",
         type=int,
@@ -325,7 +323,7 @@ def parse_args(input_args=None):
     parser.add_argument(
         "--checkpointing_steps",
         type=int,
-        default=50,
+        default=500,
         help=(
             "Save a checkpoint of the training state every X updates. Checkpoints can be used for resuming training via `--resume_from_checkpoint`. "
             "In the case that the checkpoint is better than the final trained model, the checkpoint can also be used for inference."
@@ -360,7 +358,6 @@ def parse_args(input_args=None):
         action="store_true",
         help="Whether or not to use gradient checkpointing to save memory at the expense of slower backward pass.",
     )
-    parser.add_argument("--beta_dpo", type=float, default=5000, help="The beta DPO temperature controlling strength of KL penalty")
     parser.add_argument(
         "--learning_rate",
         type=float,
@@ -492,22 +489,7 @@ def parse_args(input_args=None):
         ),
     )
     parser.add_argument(
-        "--image_1_column", type=str, default="image_1"
-    )
-    parser.add_argument(
-        "--image_2_column", type=str, default="image_2"
-    )
-    parser.add_argument(
-        "--rank_t_1_column", type=str, default="rank_t_1"
-    )
-    parser.add_argument(
-        "--rank_t_2_column", type=str, default="rank_t_2"
-    )
-    parser.add_argument(
-        "--rank_m_1_column", type=str, default="rank_m_1"
-    )
-    parser.add_argument(
-        "--rank_m_2_column", type=str, default="rank_m_2"
+        "--image_column", type=str, default="image", help="The column of the dataset containing the target image."
     )
     parser.add_argument(
         "--conditioning_image_column",
@@ -659,64 +641,14 @@ def make_train_dataset(args, tokenizer, accelerator):
     column_names = dataset["train"].column_names
 
     # 6. Get the column names for input/target.
-    if args.image_1_column is None:
-        image_1_column = column_names[0]
-        logger.info(f"image_1 column defaulting to {image_1_column}")
+    if args.image_column is None:
+        image_column = column_names[0]
+        logger.info(f"image column defaulting to {image_column}")
     else:
-        image_1_column = args.image_1_column
-        if image_1_column not in column_names:
+        image_column = args.image_column
+        if image_column not in column_names:
             raise ValueError(
-                f"`--image_1_column` value '{args.image_1_column}' not found in dataset columns. Dataset columns are: {', '.join(column_names)}"
-            )
-    
-    if args.image_2_column is None:
-        image_2_column = column_names[3]
-        logger.info(f"image_2 column defaulting to {image_2_column}")
-    else:
-        image_2_column = args.image_2_column
-        if image_2_column not in column_names:
-            raise ValueError(
-                f"`--image_2_column` value '{args.image_2_column}' not found in dataset columns. Dataset columns are: {', '.join(column_names)}"
-            )
-
-    if args.rank_t_1_column is None:
-        rank_t_1_column = column_names[4]
-        logger.info(f"rank_t_1 column defaulting to {rank_t_1_column}")
-    else:
-        rank_t_1_column = args.rank_t_1_column
-        if rank_t_1_column not in column_names:
-            raise ValueError(
-                f"`--rank_t_1_column` value '{args.rank_t_1_column}' not found in dataset columns. Dataset columns are: {', '.join(column_names)}"
-            )
-
-    if args.rank_m_1_column is None:
-        rank_m_1_column = column_names[5]
-        logger.info(f"rank_m_1 column defaulting to {rank_m_1_column}")
-    else:
-        rank_m_1_column = args.rank_m_1_column
-        if rank_m_1_column not in column_names:
-            raise ValueError(
-                f"`--rank_m_1_column` value '{args.rank_m_1_column}' not found in dataset columns. Dataset columns are: {', '.join(column_names)}"
-            )
-    
-    if args.rank_t_2_column is None:
-        rank_t_2_column = column_names[6]
-        logger.info(f"rank_t_2 column defaulting to {rank_t_2_column}")
-    else:
-        rank_t_2_column = args.rank_t_2_column
-        if rank_t_2_column not in column_names:
-            raise ValueError(
-                f"`--rank_t_2_column` value '{args.rank_t_2_column}' not found in dataset columns. Dataset columns are: {', '.join(column_names)}"
-            )
-
-    if args.rank_m_2_column is None:
-        rank_m_2_column = column_names[7]
-        logger.info(f"rank_m_2 column defaulting to {rank_m_2_column}")
-    else:
-        rank_m_2_column = args.rank_m_2_column
-        if rank_m_2_column not in column_names:
-            raise ValueError(
-                f"`--rank_m_2_column` value '{args.rank_m_2_column}' not found in dataset columns. Dataset columns are: {', '.join(column_names)}"
+                f"`--image_column` value '{args.image_column}' not found in dataset columns. Dataset columns are: {', '.join(column_names)}"
             )
 
     if args.caption_column is None:
@@ -776,11 +708,8 @@ def make_train_dataset(args, tokenizer, accelerator):
     )
 
     def preprocess_train(examples):
-        images_1 = [Image.open(args.train_data_dir.split("/")[0] + "/" + image).convert("RGB") for image in examples[image_1_column]]
-        images_1 = [image_transforms(image) for image in images_1]
-        
-        images_2 = [Image.open(args.train_data_dir.split("/")[0] + "/" + image).convert("RGB") for image in examples[image_2_column]]
-        images_2 = [image_transforms(image) for image in images_2]
+        images = [Image.open(args.train_data_dir.split("/")[0] + "/" + image).convert("RGB") for image in examples[image_column]]
+        images = [image_transforms(image) for image in images]
         
         conditioning_images = []
         for image in examples[conditioning_image_column]:
@@ -790,17 +719,7 @@ def make_train_dataset(args, tokenizer, accelerator):
                 conditioning_images.append(Image.open(args.train_data_dir.split("/")[0] + "/" + image).convert("RGB"))
         conditioning_images = [conditioning_image_transforms(image) for image in conditioning_images]
 
-        ranks_t_1 = [rank.strip() for rank in examples[rank_t_1_column]]
-        ranks_t_2 = [rank.strip() for rank in examples[rank_t_2_column]]
-        ranks_m_1 = [rank.strip() for rank in examples[rank_m_1_column]]
-        ranks_m_2 = [rank.strip() for rank in examples[rank_m_2_column]]
-
-        examples["pixel_values_1"] = images_1
-        examples["pixel_values_2"] = images_2
-        examples["ranks_t_1"] = ranks_t_1
-        examples["ranks_t_2"] = ranks_t_2
-        examples["ranks_m_1"] = ranks_m_1
-        examples["ranks_m_2"] = ranks_m_2
+        examples["pixel_values"] = images
         examples["conditioning_pixel_values"] = conditioning_images
         examples["input_ids"], examples["captions"] = tokenize_captions(examples)
 
@@ -816,32 +735,20 @@ def make_train_dataset(args, tokenizer, accelerator):
 
 
 def collate_fn(examples):
-    pixel_values_1 = torch.stack([example["pixel_values_1"] for example in examples])
-    pixel_values_1 = pixel_values_1.to(memory_format=torch.contiguous_format).float()
-    
-    pixel_values_2 = torch.stack([example["pixel_values_2"] for example in examples])
-    pixel_values_2 = pixel_values_2.to(memory_format=torch.contiguous_format).float()
+    pixel_values = torch.stack([example["pixel_values"] for example in examples])
+    pixel_values = pixel_values.to(memory_format=torch.contiguous_format).float()
 
     conditioning_pixel_values = torch.stack([example["conditioning_pixel_values"] for example in examples])
     conditioning_pixel_values = conditioning_pixel_values.to(memory_format=torch.contiguous_format).float()
 
     input_ids = torch.stack([example["input_ids"] for example in examples])
     captions = [example["captions"] for example in examples]
-    ranks_t_1 = [example["ranks_t_1"] for example in examples]
-    ranks_t_2 = [example["ranks_t_2"] for example in examples]
-    ranks_m_1 = [example["ranks_m_1"] for example in examples]
-    ranks_m_2 = [example["ranks_m_2"] for example in examples]
     
     return {
-        "pixel_values_1": pixel_values_1,
-        "pixel_values_2": pixel_values_2,
+        "pixel_values": pixel_values,
         "conditioning_pixel_values": conditioning_pixel_values,
         "input_ids": input_ids,
         "captions": captions,
-        "ranks_t_1": ranks_t_1,
-        "ranks_t_2": ranks_t_2,
-        "ranks_m_1": ranks_m_1,
-        "ranks_m_2": ranks_m_2
     }
 
 
@@ -908,16 +815,23 @@ def main(args):
         args.pretrained_model_name_or_path, subfolder="text_encoder", revision=args.revision, variant=args.variant
     )
 
+    def load_reward_model(reward_model):
+        model_name = "best_lr=0.001.pt"
+        print('load checkpoint from %s'%model_name)
+        checkpoint = torch.load(model_name, map_location='cpu') 
+        state_dict = checkpoint
+        msg = reward_model.load_state_dict(state_dict,strict=False)
+        print("missing keys:", msg.missing_keys)
+
+        return reward_model 
+
+
     # Load scheduler and models
     noise_scheduler = DDPMScheduler.from_pretrained(args.pretrained_model_name_or_path, subfolder="scheduler")
     vae = AutoencoderKL.from_pretrained(
         args.pretrained_model_name_or_path, subfolder="vae", revision=args.revision, variant=args.variant
     )
     unet = UNet2DConditionModel.from_pretrained(
-        args.pretrained_model_name_or_path, subfolder="unet", revision=args.revision, variant=args.variant
-    )
-    
-    unet_ref = UNet2DConditionModel.from_pretrained(
         args.pretrained_model_name_or_path, subfolder="unet", revision=args.revision, variant=args.variant
     )
 
@@ -927,9 +841,6 @@ def main(args):
     else:
         logger.info("Initializing controlnet weights from unet")
         controlnet = ControlNetModel.from_unet(unet)
-    
-    logger.info("Loading reference model weights")
-    controlnet_ref = ControlNetModel.from_pretrained(args.ref_model_name_or_path)
 
     # Taken from [Sayak Paul's Diffusers PR #6511](https://github.com/huggingface/diffusers/pull/6511/files)
     def unwrap_model(model):
@@ -969,9 +880,8 @@ def main(args):
         accelerator.register_load_state_pre_hook(load_model_hook)
 
     vae.requires_grad_(False)
-    unet_ref.requires_grad_(False)
+    unet.requires_grad_(False)
     text_encoder.requires_grad_(False)
-    controlnet_ref.requires_grad_(False)
     controlnet.train()
 
     if args.enable_xformers_memory_efficient_attention:
@@ -984,9 +894,7 @@ def main(args):
                     "xFormers 0.0.16 cannot be used for training in some GPUs. If you observe problems during training, please update xFormers to at least 0.0.17. See https://huggingface.co/docs/diffusers/main/en/optimization/xformers for more details."
                 )
             unet.enable_xformers_memory_efficient_attention()
-            unet_ref.enable_xformers_memory_efficient_attention()
             controlnet.enable_xformers_memory_efficient_attention()
-            controlnet_ref.enable_xformers_memory_efficient_attention()
         else:
             raise ValueError("xformers is not available. Make sure it is installed correctly")
 
@@ -1002,10 +910,6 @@ def main(args):
     if unwrap_model(controlnet).dtype != torch.float32:
         raise ValueError(
             f"Controlnet loaded as datatype {unwrap_model(controlnet).dtype}. {low_precision_error_string}"
-        )
-    if unwrap_model(controlnet_ref).dtype != torch.float32:
-        raise ValueError(
-            f"Controlnet ref loaded as datatype {unwrap_model(controlnet_ref).dtype}. {low_precision_error_string}"
         )
 
     # Enable TF32 for faster training on Ampere GPUs,
@@ -1068,8 +972,8 @@ def main(args):
     )
 
     # Prepare everything with our `accelerator`.
-    controlnet, optimizer, train_dataloader, lr_scheduler, controlnet_ref = accelerator.prepare(
-        controlnet, optimizer, train_dataloader, lr_scheduler, controlnet_ref
+    controlnet, optimizer, train_dataloader, lr_scheduler = accelerator.prepare(
+        controlnet, optimizer, train_dataloader, lr_scheduler
     )
 
     # For mixed precision training we cast the text_encoder and vae weights to half-precision
@@ -1081,10 +985,13 @@ def main(args):
         weight_dtype = torch.bfloat16
 
     # Move vae, unet and text_encoder to device and cast to weight_dtype
+    reward_model = ImageReward(accelerator.device)
+    reward_model = load_reward_model(reward_model)
+    reward_model.requires_grad_(False)
     vae.to(accelerator.device, dtype=weight_dtype)
     unet.to(accelerator.device, dtype=weight_dtype)
-    unet_ref.to(accelerator.device, dtype=weight_dtype)
     text_encoder.to(accelerator.device, dtype=weight_dtype)
+    reward_model.to(accelerator.device, dtype=weight_dtype)
 
     # We need to recalculate our total training steps as the size of the training dataloader may have changed.
     num_update_steps_per_epoch = math.ceil(len(train_dataloader) / args.gradient_accumulation_steps)
@@ -1137,8 +1044,8 @@ def main(args):
             initial_global_step = 0
         else:
             accelerator.print(f"Resuming from checkpoint {path}")
-            accelerator.load_state(os.path.join(args.output_dir, path))
-            global_step = int(path.split("-")[1])
+            accelerator.load_state(os.path.join(args.resume_from_checkpoint, path))
+            global_step = 10000#int(path.split("-")[1])
 
             initial_global_step = global_step
             first_epoch = global_step // num_update_steps_per_epoch
@@ -1158,125 +1065,65 @@ def main(args):
         for step, batch in enumerate(train_dataloader):
             with accelerator.accumulate(controlnet):
                 # Convert images to latent space
-                latents_1 = vae.encode(batch["pixel_values_1"].to(dtype=weight_dtype)).latent_dist.sample()
-                latents_1 = latents_1 * vae.config.scaling_factor
-                
-                latents_2 = vae.encode(batch["pixel_values_2"].to(dtype=weight_dtype)).latent_dist.sample()
-                latents_2 = latents_2 * vae.config.scaling_factor
+                latents = vae.encode(batch["pixel_values"].to(dtype=weight_dtype)).latent_dist.sample()
+                latents = latents * vae.config.scaling_factor
 
                 # Sample noise that we'll add to the latents
-                noise = torch.randn_like(latents_1)
-                bsz = latents_1.shape[0]
+                noise = torch.randn_like(latents)
+                bsz = latents.shape[0]
                 # Sample a random timestep for each image
-                device = latents_1.device
-                timesteps = torch.randint(0, noise_scheduler.config.num_train_timesteps, (bsz,), device=device)
+                timesteps = torch.randint(0, noise_scheduler.config.num_train_timesteps, (bsz,), device=latents.device)
                 timesteps = timesteps.long()
+                
                 # Add noise to the latents according to the noise magnitude at each timestep
                 # (this is the forward diffusion process)
-                noisy_latents_1 = noise_scheduler.add_noise(latents_1, noise, timesteps)
-                noisy_latents_2 = noise_scheduler.add_noise(latents_2, noise, timesteps)
-                
-                del latents_1
-                del latents_2
+                noisy_latents = noise_scheduler.add_noise(latents, noise, timesteps)
 
                 # Get the text embedding for conditioning
                 encoder_hidden_states = text_encoder(batch["input_ids"], return_dict=False)[0]
               
                 if batch["captions"][0] == "N/A":
                     encoder_hidden_states = torch.zeros_like(encoder_hidden_states)
+                #print(batch["input_ids"], batch["input_ids"].shape, encoder_hidden_states.shape)
                 controlnet_image = batch["conditioning_pixel_values"].to(dtype=weight_dtype)
-
-                # Predict the noise residual for image 1
-                down_block_res_samples_1, mid_block_res_sample_1 = controlnet(
-                    noisy_latents_1,
+                #print(batch["conditioning_pixel_values"], batch["conditioning_pixel_values"].shape)
+                down_block_res_samples, mid_block_res_sample = controlnet(
+                    noisy_latents,
                     timesteps,
                     encoder_hidden_states=encoder_hidden_states,
                     controlnet_cond=controlnet_image,
                     return_dict=False,
                 )
 
-                model_pred_1 = unet(
-                    noisy_latents_1,
+                # Predict the noise residual
+                model_pred = unet(
+                    noisy_latents,
                     timesteps,
                     encoder_hidden_states=encoder_hidden_states,
                     down_block_additional_residuals=[
-                        sample.to(dtype=weight_dtype) for sample in down_block_res_samples_1
+                        sample.to(dtype=weight_dtype) for sample in down_block_res_samples
                     ],
-                    mid_block_additional_residual=mid_block_res_sample_1.to(dtype=weight_dtype),
-                    return_dict=False,
-                )[0]
-
-                del down_block_res_samples_1
-                del mid_block_res_sample_1
-
-                # Predict the noise residual for image 2
-                down_block_res_samples_2, mid_block_res_sample_2 = controlnet(
-                    noisy_latents_2,
-                    timesteps,
-                    encoder_hidden_states=encoder_hidden_states,
-                    controlnet_cond=controlnet_image,
-                    return_dict=False,
-                )
-
-                model_pred_2 = unet(
-                    noisy_latents_2,
-                    timesteps,
-                    encoder_hidden_states=encoder_hidden_states,
-                    down_block_additional_residuals=[
-                        sample.to(dtype=weight_dtype) for sample in down_block_res_samples_2
-                    ],
-                    mid_block_additional_residual=mid_block_res_sample_2.to(dtype=weight_dtype),
+                    mid_block_additional_residual=mid_block_res_sample.to(dtype=weight_dtype),
                     return_dict=False,
                 )[0]
                 
-                del down_block_res_samples_2
-                del mid_block_res_sample_2
+                pred_original_sample = noise_scheduler.step(model_pred, timesteps, latents).pred_original_sample.to(weight_dtype)
+                pred_original_sample = 1 / vae.config.scaling_factor * pred_original_sample
+                image = vae.decode(pred_original_sample.to(weight_dtype)).sample
 
-                with torch.no_grad():
-                    # Predict the reference noise residual for image 1
-                    down_block_res_samples_ref_1, mid_block_res_sample_ref_1 = controlnet_ref(
-                        noisy_latents_1,
-                        timesteps,
-                        encoder_hidden_states=encoder_hidden_states,
-                        controlnet_cond=controlnet_image,
-                        return_dict=False,
-                    )
-                    model_pred_ref_1 = unet_ref(
-                        noisy_latents_1,
-                        timesteps,
-                        encoder_hidden_states=encoder_hidden_states,
-                        down_block_additional_residuals=[
-                            sample.to(dtype=weight_dtype) for sample in down_block_res_samples_ref_1
-                        ],
-                        mid_block_additional_residual=mid_block_res_sample_ref_1.to(dtype=weight_dtype),
-                        return_dict=False,
-                    )[0]
-                
-                    del down_block_res_samples_ref_1
-                    del mid_block_res_sample_ref_1
-                
-                # Predict the reference noise residual for image 2
-                    down_block_res_samples_ref_2, mid_block_res_sample_ref_2 = controlnet_ref(
-                        noisy_latents_2,
-                        timesteps,
-                        encoder_hidden_states=encoder_hidden_states,
-                        controlnet_cond=controlnet_image,
-                        return_dict=False,
-                    )
-                    model_pred_ref_2 = unet_ref(
-                        noisy_latents_2,
-                        timesteps,
-                        encoder_hidden_states=encoder_hidden_states,
-                        down_block_additional_residuals=[
-                            sample.to(dtype=weight_dtype) for sample in down_block_res_samples_ref_2
-                        ],
-                        mid_block_additional_residual=mid_block_res_sample_ref_2.to(dtype=weight_dtype),
-                        return_dict=False,
-                    )[0]
-                
-                    del down_block_res_samples_ref_2
-                    del mid_block_res_sample_ref_2
-                
+                def _transform():
+                    return Compose([
+                        Resize(224, interpolation=BICUBIC),
+                        CenterCrop(224),
+                        Normalize((0.48145466, 0.4578275, 0.40821073), (0.26862954, 0.26130258, 0.27577711)),
+                    ])
+
+                rm_preprocess = _transform()
+                image = rm_preprocess(image).to(accelerator.device)
+                rewards = reward_model.score_gard(image, batch["captions"][0])
+                loss = F.relu(-rewards+2)
+                loss = loss.mean() * 1e-3
+
                 # Get the target for loss depending on the prediction type
                 if noise_scheduler.config.prediction_type == "epsilon":
                     target = noise
@@ -1284,61 +1131,7 @@ def main(args):
                     target = noise_scheduler.get_velocity(latents, noise, timesteps)
                 else:
                     raise ValueError(f"Unknown prediction type {noise_scheduler.config.prediction_type}")
-                
-                loss_text = 0
-                loss_mask = 0
-               
-                err_1 = (model_pred_1.float() - target.float()).pow(2).mean(dim=[1,2,3])
-                err_2 = (model_pred_2.float() - target.float()).pow(2).mean(dim=[1,2,3])
-                err_ref_1 = (model_pred_ref_1.float() - target.float()).pow(2).mean(dim=[1,2,3])
-                err_ref_2 = (model_pred_ref_2.float() - target.float()).pow(2).mean(dim=[1,2,3])
-                scale_term = -0.5 * args.beta_dpo
-
-                #Text-based loss
-                ranks_t_1 = batch["ranks_t_1"][0]
-                ranks_t_2 = batch["ranks_t_2"][0]
-                if (ranks_t_1 != "N/A" and ranks_t_2 != "N/A"):
-                    ranks_t_1 = int(ranks_t_1)
-                    ranks_t_2 = int(ranks_t_2)
-                    w_diff = 0
-                    l_diff = 0
-                    if (ranks_t_1 > ranks_t_2):
-                        w_diff = (ranks_t_1/args.max_rank) * (err_1 - err_ref_1)
-                        l_diff = (ranks_t_2/args.max_rank) * (err_2 - err_ref_2)
-                    if (ranks_t_2 > ranks_t_1):
-                        w_diff = (ranks_t_2/args.max_rank) * (err_2 - err_ref_2)
-                        l_diff = (ranks_t_1/args.max_rank) * (err_1 - err_ref_1)
-                    inside_term = scale_term * (w_diff - l_diff)
-                    if not torch.is_tensor(inside_term):
-                        inside_term = torch.tensor(inside_term)
-                    loss_text = -1 * F.logsigmoid(inside_term).mean()
-
-                #Mask-based loss
-                ranks_m_1 = batch["ranks_m_1"][0]
-                ranks_m_2 = batch["ranks_m_2"][0]
-                
-                if (ranks_m_1 != "N/A" and ranks_m_2 != "N/A"):
-                    ranks_m_1 = int(ranks_m_1)
-                    ranks_m_2 = int(ranks_m_2)
-                    w_diff = 0
-                    l_diff = 0
-                    if (ranks_m_1 > ranks_m_2):
-                        w_diff = (ranks_m_1/args.max_rank) * (err_1 - err_ref_1)
-                        l_diff = (ranks_m_2/args.max_rank) * (err_2 - err_ref_2)
-                    if (ranks_m_2 > ranks_m_1):
-                        w_diff = (ranks_m_2/args.max_rank) * (err_2 - err_ref_2)
-                        l_diff = (ranks_m_1/args.max_rank) * (err_1 - err_ref_1) 
-                    inside_term = scale_term * (w_diff - l_diff)
-                    if not torch.is_tensor(inside_term):
-                        inside_term = torch.tensor(inside_term)
-                    loss_mask = -1 * F.logsigmoid(inside_term).mean()
-
-                loss = 0.5 * (loss_mask + loss_text)
-
-                if (ranks_m_1 == "N/A" and ranks_m_2 == "N/A"):
-                    loss = loss_text
-                if (ranks_t_1 == "N/A" and ranks_t_2 == "N/A"):
-                    loss = loss_mask
+                loss = (loss + F.mse_loss(model_pred.float(), target.float(), reduction="mean"))/2
 
                 accelerator.backward(loss)
                 if accelerator.sync_gradients:
@@ -1374,7 +1167,7 @@ def main(args):
                                 for removing_checkpoint in removing_checkpoints:
                                     removing_checkpoint = os.path.join(args.output_dir, removing_checkpoint)
                                     shutil.rmtree(removing_checkpoint)
-                        torch.save(unet.state_dict(), args.output_dir + '/unet/diffusion_pytorch_model_' + str(global_step) + '.bin')
+
                         save_path = os.path.join(args.output_dir, f"checkpoint-{global_step}")
                         accelerator.save_state(save_path)
                         logger.info(f"Saved state to {save_path}")
